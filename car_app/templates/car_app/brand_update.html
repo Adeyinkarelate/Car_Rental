@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Update Brand{% endblock %}
+{% block main %}
+
+
+<!--  -->
+<div class="about d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <small>THE ROYAL ESSENCE OF JOURNEY</small>
+        <h6 class="fw-bold my-1">Update Brand >> <a href="{% url 'home' %}" class="text-decoration-none text-warning ">Home</a>
+        </h6>
+    </div>
+</div>
+<!--  -->
+
+<div class="container">
+    <div class="row py-5 px-3">
+        <div class="col-sm-12 col-md-6 offset-md-3 my-2">
+            
+            <form action="" method="POST" class="p-4  shadow">
+                <h3 class="my-2">UPDATE BRAND</h3>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Brand</label>
+                    {{form |crispy}}
+                  </div>
+                  <button class="btn btn-outline-warning text-dark " type="submit">Update Brand</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

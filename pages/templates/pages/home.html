@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+{% block main %}
+
+<div class="home d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <small>THE ROYAL ESSENCE OF JOURNEY</small>
+        <h1 class="fw-bolder my-1">RELAXED <span class="text-warning ">JOURNEY EVER</span></h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.</p>
+        <a href="#" class="btn btn-warning fw-bold rounded-pill" data-bs-toggle="tooltip" data-bs-html="true"
+            title="Rent the car of your choice">Book Now</a>
+    </div>
+</div>
+<!-- servies render -->
+<div class="container">
+    <div class="row py-5 my-2">
+        <h3 class="my-2 text-center fw-bold display-6">What Services we offer to our clients</h3>
+        <p class="text-center">Who are in extremely love with eco friendly system.</p>
+        <!--  -->
+        <div class="col-sm-12 col-md-4 my-2">
+            <div class="card hometext " style="width: 100%;height:200px;">
+                <div class="card-body rounded" id="homie">
+                    <div class="d-flex justify-content-between">
+                        <i class="fa-solid fa-user "></i>
+                        <h5 class="fw-bold">Expert Technicians</h5>
+                    </div>
+                    <p class="my-2 text">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+        </div>
+        <!--  2-->
+        <div class="col-sm-12 col-md-4 my-2">
+            <div class="card hometext" style="width: 100%;height:200px;">
+                <div class="card-body rounded" id="homie">
+                    <div class="d-flex justify-content-between">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <h5 class="fw-bold">Professional Service</h5>
+                    </div>
+                    <p class="my-2 text">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+        </div>
+        <!-- 3 -->
+        <div class="col-sm-12 col-md-4 my-2">
+            <div class="card hometext" style="width: 100%;height:200px;">
+                <div class="card-body rounded" id="homie">
+                    <div class="d-flex justify-content-between">
+                        <i class="fa-solid fa-phone "></i>
+                        <h5 class="fw-bold">Great Support</h5>
+                    </div>
+                    <p class="my-2 text">Usage of the Internet is becoming more common due to rapid advancement of
+                        technology and power.</p>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+    </div>
+</div>
+<!-- end -->
+<!-- ABOUT US -->
+<div class="container-fluid py-5 " >
+    <div class="row " style="background-color: rgba(243, 221, 134, 0.783);">
+        <div class="col-sm-12 col-md-6">
+            <img src="{% static '/images/car2.png' %}" alt="car image" style="width: 100%; height:max-content;">
+        </div>
+        <!--  -->
+        <div class="col-sm-12 col-md-6 sm-pt-2 md-pt-5 ">
+            <h3 class="my-2  fw-bolder display-6 mt-5">Globally Connected </h3>
+                <small class="fw-bold">We are here to listen from you deliver exellence</small>
+                <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                    incididunt
+                    ut
+                    labore et dolore magna aliqua. Ut enim ad minim. Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit,
+                    sed do eiusmod tempor.</p>
+                <a href="#" class="btn btn-warning fw-bold ">GET DETAILS</a>
+        </div>
+    </div>
+</div>
+<!-- end -->
+
+<!-- LATEST CAR -->
+<div class="container py-5 " >
+    <div class="row ">
+        <h3 class="my-2 text-center fw-bold display-6">Latest Car for all our client </h3>
+        <p class="text-center">Who are in extremely love with eco friendly system.</p>
+        <!-- the cars from the database -->
+        {% for car in cars %}
+        <div class="col-sm-12 col-md-4 my-2">
+            <div class="card shadow" style="width:100%;">
+                <img src="{{car.car_photo.url}}" class="card-img-top" alt="the main car photo"class="img-fluid"  height="300px">
+                <div class="card-body ">
+                    <h4 class="card-title fw-bolder">{{car.model|capfirst}}</h4>
+                    <p class="card-text rounded"><i class="fa-solid fa-location-dot text-warning"></i>{{car.city|capfirst}}</p>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'car_detail' car.id %}" class="text-decoration-none fw-bold text-dark">Details</a>
+                        <a href="#" class="btn btn-warning rounded-pill shadow ">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- 1b -->
+    </div>   
+</div>
+<!--  -->
+{% endblock %}
+
+

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Cars{% endblock %}
+{% block main %}
+
+
+
+<!--  -->
+<div class="about d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <small>THE ROYAL ESSENCE OF JOURNEY</small>
+        <h6 class="fw-bold my-1">Cars >> <a href="{% url 'home' %}" class="text-decoration-none text-warning ">Home</a>
+        </h6>
+    </div>
+</div>
+<!--  -->
+<div class="container mt-5">
+    <div class="row">
+        <!--  -->
+        <div class="col-sm-12 col-md-9 my-2">
+            <div class="row py-5 ">
+                <!-- the cars from the database -->
+                {% for car in cars %}
+                <div class="col-sm-12 col-md-5 my-2">
+                    <div class="card shadow" style="width:100%;">
+                        <img src="{{car.car_photo.url}}" class="card-img-top" alt="the main car photo" class="img-fluid"
+                            height="300px">
+                        <div class="card-body ">
+                            <h4 class="card-title fw-bolder">{{car.model|capfirst}}</h4>
+                            <p class="card-text rounded"><i
+                                    class="fa-solid fa-location-dot text-warning"></i>{{car.city|capfirst}}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'car_detail' car.id %}" class="text-decoration-none fw-bold text-dark">Details</a>
+                                <a href="#" class="btn btn-warning rounded-pill shadow ">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- 1b -->
+            </div>
+
+            <!-- paginator  -->
+            <div class="pagination-box p-box-2 text-center">
+                <nav aria-label="Page navigation example">
+                    {% if cars.has_other_pages %}
+                    <ul class="pagination">
+                        {% if cars.has_previous %}
+                        <li class="page-item bg-warning">
+                            <a class="page-link" href="?page={{cars.previous_page_number}}"><i
+                                    class="fa fa-angle-left"></i></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link"><i class="fa fa-angle-left"></i></a>
+                        </li>
+                        {% endif %}
+
+                        {% for i in cars.paginator.page_range %}
+                        {% if cars.number == i %}
+                        <li class="page-item"><a class="page-link active" href="#">{{ i }}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+
+                        {% if cars.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{cars.next_page_number}}"><i
+                                    class="fa fa-angle-right"></i></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link"><i class="fa fa-angle-right"></i></a>
+                        </li>
+                        {% endif %}
+
+
+
+                    </ul>
+                    {% endif %}
+                </nav>
+            </div>
+            <!-- paginator -->
+        </div>
+        <!-- 2 -->
+        <div class="col-sm-12 col-md-3 my-2 py-5">
+            <div style="width:100%;height:150px" class=" p-3 text-light ">
+                <div class="fw-bold text-center mb-2 ">Search your desire car</div>
+                <form class="d-flex " method="GET" action="{% url 'search' %}">
+                    {% csrf_token %}
+                    <input class="form-control me-2 " name="keyword" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-warning" type="submit">Search</button>
+                  </form>
+            </div>
+        </div>
+        <!--  -->
+    </div>
+</div>
+
+
+{% endblock %}

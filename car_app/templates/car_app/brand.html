@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Brand{% endblock %}
+{% block main %}
+
+
+<!--  -->
+<div class="about d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <small>THE ROYAL ESSENCE OF JOURNEY</small>
+        <h6 class="fw-bold my-1">Brand>> <a href="{% url 'home' %}" class="text-decoration-none text-warning ">Home</a>
+        </h6>
+    </div>
+</div>
+<!--  -->
+
+<div class="container">
+    <div class="row py-5 px-3">
+        <div class="col-sm-12 col-md-8 my-2">
+            <!--  -->
+            
+            <table class="table table-light table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Date</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                {% for brand in brands %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{brand.id}}</th>
+                        <td>{{brand.brand_name}}</td>
+                        <td>{{brand.date_created}}</td>
+                        <td><a href="{% url 'brand_update' brand.id %}" class="text-decoration-none"><i class="fa-solid fa-file-pen text-primary"></i></a></td>
+                        <td><a href="{% url 'brand_delete' brand.id %}" class="text-decoration-none"><i class="fa-solid fa-trash-can text-danger"></i></a></td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+           
+            <!--  -->
+        </div>
+        <div class="col-sm-12 col-md-4 my-2">
+            
+            <form action="" method="POST" class="p-4 ">
+                <h3 class="my-2">CREATE BRAND</h3>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Brand</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+                  </div>
+                  <button class="btn btn-outline-warning text-dark " type="submit" >Create Brand</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

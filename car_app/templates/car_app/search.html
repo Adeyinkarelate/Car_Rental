@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Search{% endblock %}
+{% block main %}
+
+<style>
+    .contact-form {
+        background: #000;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #000, #000);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #000, #000);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    .form-group {
+        margin: 15px 0px;
+    }
+
+    .form-control {
+        background-color: #f9b700 !important;
+    }
+
+    .form-control:focus {
+        border-color: #f9b700;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+
+    }
+
+    .bootstrap-select.btn-group .dropdown-toggle .filter-option {
+        display: inline-block;
+        overflow: hidden;
+        width: 100%;
+        text-align: left;
+        font-size: 13px;
+        color: #f9b700;
+        font-weight: 400;
+    }
+
+    .search-options-btn,
+    .search-options-btn:hover {
+        padding: 12px 20px 10px 20px;
+        font-size: 13px;
+        font-weight: 400;
+        color: #f9b700 !important;
+        cursor: pointer;
+        z-index: 0;
+        letter-spacing: 1px;
+        position: absolute;
+        bottom: 10px;
+        border-radius: 50px;
+    }
+
+    .search-options-btn,
+    .search-options-btn i {
+        margin-left: 5px;
+    }
+
+    .search-options-btn .search-options {
+        float: left;
+    }
+
+    .search-options-btn .icon {
+        float: left;
+    }
+
+    .search-area label {
+        font-size: 12px;
+        color: #000;
+        font-weight: 600;
+    }
+
+    .search-area .form-group {
+        margin-bottom: 25px;
+    }
+
+    .search-fields {
+        min-height: 45px;
+        padding: 0;
+        border-radius: 3px;
+        box-shadow: none;
+        border: 1px solid #fff;
+        background: #f9b700;
+    }
+
+    .form-control {
+        padding-left: 15px;
+    }
+
+    .search-fields button {
+        border-radius: 1px;
+        box-shadow: none;
+        border: none;
+        background: #000 !important;
+    }
+
+    .search-button {
+        cursor: pointer;
+        padding: 13px 26px 11px;
+        font-size: 15px;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: #f9b700;
+        transition: .5s;
+        border-radius: 2px;
+        border: none;
+        width: 100%;
+        outline: none;
+    }
+
+    .search-button:hover {
+        color: #f9b700;
+    }
+
+    .search-fields option {
+        background-color: #000 !important;
+        color: #fff !important;
+
+    }
+
+    /* range */
+    range-slider {
+        margin-top: 15px;
+        margin-bottom: 30px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .range-slider .ui-slider {
+        position: relative;
+        text-align: left;
+    }
+
+    .range-slider label {
+        font-size: 14px;
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 12px;
+    }
+
+    .range-slider .ui-slider .ui-slider-handle {
+        position: absolute;
+        z-index: 2;
+        width: 14px;
+        height: 14px;
+        border-radius: 0;
+        border: 2px solid #f9b700;
+        cursor: w-resize;
+        outline: none;
+        top: -5px;
+        margin-left: -8px;
+        box-shadow: none !important;
+    }
+
+    .range-slider .ui-slider .ui-slider-range {
+        position: absolute;
+        z-index: 1;
+        display: block;
+        border: 0;
+        background-position: 0 0;
+    }
+
+    .range-slider .ui-slider .ui-slider-handle {}
+
+    .range-slider .ui-widget-content {
+        background-color: #ccc;
+    }
+
+    .range-slider .ui-widget-header {}
+
+    .range-slider .ui-slider.ui-state-disabled .ui-slider-handle,
+    .range-slider .ui-slider.ui-state-disabled .ui-slider-range {
+        filter: inherit;
+    }
+
+    .range-slider .ui-slider-horizontal {
+        height: 4px;
+        border-radius: 10px;
+        width: calc(100% - 16px);
+        margin-left: 8px;
+    }
+
+    .range-slider .ui-slider-horizontal .ui-slider-range {
+        top: 0;
+        height: 100%;
+    }
+
+    .range-slider .ui-slider-horizontal .ui-slider-range-min {
+        left: 0;
+    }
+
+    .range-slider .ui-slider-horizontal .ui-slider-range-max {
+        right: 0;
+    }
+
+    .min-value:focus,
+    .max-value:focus,
+    .min-value,
+    .max-value {
+        width: 40%;
+        display: inline-block;
+        border: 0;
+        background-color: transparent;
+        padding: 0;
+        margin: 12px 0 0 0;
+        cursor: default;
+    }
+
+    .min-value {
+        float: left;
+        margin-left: -8px;
+        width: 40%;
+        margin-right: -8px;
+        font-size: 13px;
+        color: #811a1a;
+        font-weight: 500;
+        margin-top: 15px;
+    }
+
+    .max-value {
+        float: right;
+        width: 60%;
+        text-align: right;
+        margin-right: -8px;
+        font-size: 13px;
+        color: #2f0505;
+        font-weight: 500;
+        margin-top: 15px;
+    }
+
+</style>
+
+<!--  -->
+<div class="about d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <small>THE ROYAL ESSENCE OF JOURNEY</small>
+        <h6 class="fw-bold my-1">Search >> <a href="{% url 'home' %}" class="text-decoration-none text-warning ">Home</a>
+        </h6>
+    </div>
+</div>
+<!--  -->
+<div class="container mt-5">
+    <div class="row p-">
+        <!--  -->
+        <div class="col-sm-12 col-md-9 my-2">
+            <div class="row py-5 ">
+                <!-- the cars from the database -->
+                {% for car in cars %}
+                <div class="col-sm-12 col-md-4 my-2">
+                    <div class="card shadow" style="width:100%;">
+                        <img src="{{car.car_photo.url}}" class="card-img-top" alt="the main car photo" 
+                            height="300px">
+                        <div class="card-body ">
+                            <h4 class="card-title fw-bolder">{{car.model|capfirst}}</h4>
+                            <p class="card-text rounded"><i
+                                    class="fa-solid fa-location-dot text-warning"></i>{{car.city|capfirst}}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'car_detail' car.id %}" class="text-decoration-none fw-bold text-dark">Details</a>
+                                <a href="#" class="btn btn-warning rounded-pill shadow ">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                 <!-- paginator  -->
+            <div class="pagination-box p-box-2 text-center">
+                <nav aria-label="Page navigation example">
+                    {% if cars.has_other_pages %}
+                    <ul class="pagination">
+                        {% if cars.has_previous %}
+                        <li class="page-item bg-warning">
+                            <a class="page-link" href="?page={{cars.previous_page_number}}"><i
+                                    class="fa fa-angle-left"></i></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link"><i class="fa fa-angle-left"></i></a>
+                        </li>
+                        {% endif %}
+
+                        {% for i in cars.paginator.page_range %}
+                        {% if cars.number == i %}
+                        <li class="page-item"><a class="page-link active" href="#">{{ i }}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+
+                        {% if cars.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{cars.next_page_number}}"><i
+                                    class="fa fa-angle-right"></i></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link"><i class="fa fa-angle-right"></i></a>
+                        </li>
+                        {% endif %}
+
+
+
+                    </ul>
+                    {% endif %}
+                </nav>
+            </div>
+            <!-- paginator -->
+
+            </div>
+        </div>
+
+
+{% endblock %}

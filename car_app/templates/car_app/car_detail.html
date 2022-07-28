@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Cars{% endblock %}
+{% block main %}
+
+
+
+<!--  -->
+<div class="about d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <small>THE ROYAL ESSENCE OF JOURNEY</small>
+        <h6 class="fw-bold my-1">Cars Detail >> <a href="{% url 'home' %}" class="text-decoration-none text-warning ">Home</a>
+        </h6>
+    </div>
+</div>
+<!--  -->
+<div class="container">
+    <div class="row p-5">
+        <div class="col-sm-12 col-md-8 my-2">
+                <div class="col-sm-12 col-md-5 my-2">
+                    <div class="card shadow" style="width:100%;">
+                        <img src="{{car.car_photo.url}}" class="card-img-top" alt="the main car photo" class="img-fluid"
+                            height="300px">
+                        <div class="card-body ">
+                            <h4 class="card-title fw-bolder">{{car.model|capfirst}}</h4>
+                            <p class="card-text rounded"><i
+                                    class="fa-solid fa-location-dot text-warning"></i>{{car.city|capfirst}}</p>
+                            <div class="d-flex justify-content-between">
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!--  -->
+        <div class="col-sm-12 col-md-8 my-2"></div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+*{
+    user-select: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    cursor: poinrter;
+}
+body{
+    background-color: red;
+}
+
+.navbar .navbar-expand-lg  {
+    background-color: aqua !important;
+}
