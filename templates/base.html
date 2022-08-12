@@ -15,9 +15,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,400&display=swap" rel="stylesheet">
   <!-- fontawsome -->
+  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <!-- lighwave css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/css/lightgallery-bundle.min.css" integrity="sha512-lgRFGedXdci5Ykc5Wbgd8QCzt3lBmnkWcMRAS8myln2eMCDwQBrHmjqvUj9rBcKOyWMC+EYJnvEppggw1v+m8Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/css/lightgallery-bundle.min.css"
+    integrity="sha512-lgRFGedXdci5Ykc5Wbgd8QCzt3lBmnkWcMRAS8myln2eMCDwQBrHmjqvUj9rBcKOyWMC+EYJnvEppggw1v+m8Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- lightwave js -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/lightgallery.min.js"></script> -->
 
@@ -28,7 +32,7 @@
 
   <!-- navabar start -->
   <nav class="navbar navbar-expand-lg  navbar-light fixed-top bgcolor">
-    <div class="container-fluid">
+    <div class="container px-3">
       <a class="navbar-brand" href="{% url 'home' %}">Logo</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,17 +47,40 @@
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'brand' %}">Brand</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'car_list' %}">Vehicle</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-outline-warning shadow-white" href="#">Book Now</a>
+
+          {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+            {{ request.user.first_name|lower}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:black ;">
+              {% if request.user.is_staff %}
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              {% else %}
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a></li>
+              {% endif %}
+            </ul>
           </li>
+          {% else %}
+          <li class="nav-item dropdown" >
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Account
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:black ;">
+              <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+              <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+            </ul>
+          </li>
+          {% endif %}
+
 
         </ul>
       </div>
@@ -70,11 +97,17 @@
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="{% static '/js/app.js' %}"></script>
-  
+
   <!-- lightgallery plugins -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/lightgallery.umd.min.js" integrity="sha512-2pp0/kD6a6gBsvL19QqDQPzDAESHtRw5Z+QrcoKfp+DH66Lx88A3QTdT/9NmBfT7ctvka24NgzpYqC4TQLTNQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/zoom/lg-zoom.umd.min.js" integrity="sha512-oOspW2sEY/O+m/gN9szknLElkcJQuxtF1HWEM65aLM3/yBfa92BIWof9YqeYTmRfrkuP+zlUGHhjA2A+rNEKyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/thumbnail/lg-thumbnail.umd.min.js" integrity="sha512-hdzLQVAURjMzysJVkWaKWA2nD+V6CcBx6wH0aWytFnlmgIdTx/n5rDWoruSvK6ghnPaeIgwKuUESlpUhat2X+Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/lightgallery.umd.min.js"
+    integrity="sha512-2pp0/kD6a6gBsvL19QqDQPzDAESHtRw5Z+QrcoKfp+DH66Lx88A3QTdT/9NmBfT7ctvka24NgzpYqC4TQLTNQQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/zoom/lg-zoom.umd.min.js"
+    integrity="sha512-oOspW2sEY/O+m/gN9szknLElkcJQuxtF1HWEM65aLM3/yBfa92BIWof9YqeYTmRfrkuP+zlUGHhjA2A+rNEKyA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/thumbnail/lg-thumbnail.umd.min.js"
+    integrity="sha512-hdzLQVAURjMzysJVkWaKWA2nD+V6CcBx6wH0aWytFnlmgIdTx/n5rDWoruSvK6ghnPaeIgwKuUESlpUhat2X+Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- anyother lightwaVE PLUGINS -->
   <script>
 
@@ -85,12 +118,13 @@
     //light wave
     lightGallery(document.getElementById('lightgallery'), {
       plugins: [lgZoom, lgThumbnail],
-      licenseKey: 'your_license_key',      
+      licenseKey: 'your_license_key',
       // ... other settings
-  });
+    });
 
-    
+
   </script>
- 
+
 </body>
+
 </html>

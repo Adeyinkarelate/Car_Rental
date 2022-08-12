@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Brand{% endblock %}
+{% load crispy_forms_tags %}
+{% block title %} Dashboard {% endblock %}
 {% block main %}
 
 
@@ -8,17 +9,19 @@
 <div class="about d-flex justify-content-center align-items-center">
     <div class="text-center">
         <small>THE ROYAL ESSENCE OF JOURNEY</small>
-        <h6 class="fw-bold my-1">Brand>> <a href="{% url 'home' %}" class="text-decoration-none text-warning ">Home</a>
+        <h6 class="fw-bold my-1"> <a href="\admin" class="text-decoration-none text-warning ">Admin Panel </a> >> <a
+                href="{% url 'home' %}" class="text-decoration-none text-warning ">Home</a>
         </h6>
     </div>
 </div>
 <!--  -->
 
+
 <div class="container">
-    <div class="row py-5 px-3">
+    <div class="row pb-5 px-3">
         <div class="col-sm-12 col-md-8 my-2">
             <!--  -->
-            
+            <h6 class='my-2 p-5'>{% include 'partial/messages.html' %}</h6>
             <table class="table table-light table-striped">
                 <thead>
                     <tr>
@@ -35,27 +38,109 @@
                         <th scope="row">{{brand.id}}</th>
                         <td>{{brand.brand_name}}</td>
                         <td>{{brand.date_created}}</td>
-                        <td><a href="{% url 'brand_update' brand.id %}" class="text-decoration-none"><i class="fa-solid fa-file-pen text-primary"></i></a></td>
-                        <td><a href="{% url 'brand_delete' brand.id %}" class="text-decoration-none"><i class="fa-solid fa-trash-can text-danger"></i></a></td>
+                        <td><a href="{% url 'brand_update' brand.id %}" class="text-decoration-none"><i
+                                    class="fa-solid fa-file-pen text-primary"></i></a></td>
+                        <td>
+                            <a class="text-decoration-none data-bs-toggle=" modal"
+                                data-bs-target="#exampleModal""><i class=" fa-solid fa-trash-can text-danger"></i></a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are You sure you want to delete this brand ?
+                                        </div>
+                                        <div class="modal-footer">
+
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <a href="{% url 'brand_delete' brand.id %}"
+                                                class='text-decoration-none btn-outline-primary'>Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
                 {% endfor %}
             </table>
-           
+
             <!--  -->
         </div>
         <div class="col-sm-12 col-md-4 my-2">
-            
+
             <form action="" method="POST" class="p-4 ">
                 <h3 class="my-2">CREATE BRAND</h3>
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Brand</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
-                  </div>
-                  <button class="btn btn-outline-warning text-dark " type="submit" >Create Brand</button>
+                    {% comment %} <label for="disabledTextInput" class="form-label">Brand</label> {% endcomment %}
+                    {{ form|crispy }}
+                </div>
+                <button class="btn btn-outline-warning text-dark " type="submit">Create Brand</button>
             </form>
         </div>
+    </div>
+
+</div>
+<!--  -->
+<div class="container my-2 p-5">
+
+    <div class="row py-s">
+        <div class="col-sm-12 col-md-4 my-2">
+           <a href="{% url 'car_list' %}" class="text-decoration-none">
+            <div class="card text-center py-4 shadow " style="width: 100%; background-color:black;" >
+                <i class="fa-solid fa-car text-warning fa-4x"></i>
+                <div class="text-light fs-2 ">Vehicle : {{car_count}}</div>
+            </div>
+           </a>
+        </div>
+        <!-- 2 -->
+        <div class="col-sm-12 col-md-4 my-2">
+            <a href="{% url 'car_list' %}" class="text-decoration-none">
+             <div class="card text-center py-4 shadow bg-primary" >
+                <i class='bx bxs-book-alt text-light fa-4x'></i>
+                 <div class="text-light fs-2 ">Booking : {{booking_count}}</div>
+             </div>
+            </a>
+         </div>
+        <!-- 3 -->
+        <div class="col-sm-12 col-md-4 my-2">
+            <a href="{% url 'car_list' %}" class="text-decoration-none">
+             <div class="card text-center py-4 shadow bg-success" style="width: 100%;" >
+                <i class='bx bxs-cylinder text-dark fa-4x'></i>
+                 <div class="text-dark fs-2 ">Brand : {{brand_count}}</div>
+             </div>
+            </a>
+         </div>
+    </div>
+    <!--  -->
+    <div class="row py-s">
+        <div class="col-sm-12 col-md-4 my-2">
+           <a href="#" class="text-decoration-none">
+            <div class="card text-center py-4 shadow bg-info" style="width: 100%;" >
+                <i class='bx bxs-user text-dark fa-4x'></i>
+                <div class="text-light  fs-2">Register User: {{user_count}}</div>
+            </div>
+           </a>
+        </div>
+        <!-- 2 -->
+        <div class="col-sm-12 col-md-4 my-2">
+            <a href="#" class="text-decoration-none">
+             <div class="card text-center py-4 shadow bg-warning " style="width: 100%;" >
+                <i class='bx bxs-contact text-dark fa-4x' ></i>
+                 <div class="text-dark  fs-2">Contact : {{contact_count}}</div>
+             </div>
+            </a>
+         </div>
+        <!-- 3 -->
+
     </div>
 </div>
 
