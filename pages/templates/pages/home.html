@@ -9,8 +9,7 @@
         <h1 class="fw-bolder my-1">RELAXED <span class="text-warning ">JOURNEY EVER</span></h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua.</p>
-        <a href="#" class="btn btn-warning fw-bold rounded-pill" data-bs-toggle="tooltip" data-bs-html="true"
-            title="Rent the car of your choice">Book Now</a>
+    
     </div>
 </div>
 <!-- servies render -->
@@ -98,7 +97,14 @@
                     <p class="card-text rounded"><i class="fa-solid fa-location-dot text-warning"></i>{{car.city|capfirst}}</p>
                     <div class="d-flex justify-content-between">
                         <a href="{% url 'car_detail' car.id %}" class="text-decoration-none fw-bold text-dark">Details</a>
-                        <a href="#" class="btn btn-warning rounded-pill shadow ">Book Now</a>
+                        {% if request.user.is_authenticated %}
+                        {% if car.booking.To_agree %}
+                        <a  class="text-decoration-none fw-bold text-dark">Already Booked</a>
+                        {% else %}
+                        <a href="{% url 'booking' car.id %}" class="btn btn-warning rounded-pill shadow ">Book Now</a>
+                        
+                        {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

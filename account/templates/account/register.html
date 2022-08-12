@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Register {% endblock %}
+{% block main %}
+
+
+<!--  -->
+<div class="about d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <small>THE ROYAL ESSENCE OF JOURNEY</small>
+        <h6 class="fw-bold my-1">Register >> <a href="{% url 'home' %}" class="text-decoration-none text-warning ">Home</a>
+        </h6>
+    </div>
+</div>
+<!--  -->
+
+<div class="container">
+  <h6 class='my-2 p-5'>{% include 'partial/messages.html' %}</h6>
+    <h6 class='my-2 p-5'>{% include 'partial/messages.html' %}</h6>
+    <div class="row p-5">
+      <div class="col-sm-12 col-md-6 offset-md-3">
+        <form action="" method="POST" enctype="multipart/form-data" class="bg-light shadow p-5">
+            {% csrf_token %}
+            {{ form | crispy}}
+            <input  class=" btn btn-warning rounded-pill shadow my-2" type="submit" value="Register">
+        </form>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

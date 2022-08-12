@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block title %} Booking {% endblock %}
+{% block main %}
+
+
+<!--  -->
+<div class="about d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <small>THE ROYAL ESSENCE OF JOURNEY</small>
+        <h6 class="fw-bold my-1"> Booking Form >> <a href="{% url 'home' %}"
+                class="text-decoration-none text-warning ">Home</a>
+        </h6>
+    </div>
+</div>
+<!--  -->
+
+<!-- booking design -->
+<div class="container">
+    <div class="row py-5">
+        <div class="col-sm-12 col-md-9 my-2">
+            <div class="card" style="width: 100%;">
+                <img src="{{car.car_photo.url}}" class="card-img-top" alt="...">
+            </div>
+        </div>
+        <!-- second -->
+        <div class="col-sm-12 col-md-3 my-2">
+            <div class="card shadow bg-dark text-warning fw-bolder" style="width: 100%;">
+                <div class="card-header">
+                    {{car.car_category}}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Model : {{car.model|capfirst}}</li>
+                    <li class="list-group-item">Color : {{car.color|capfirst}}</li>
+                    <li class="list-group-item">Condition : {{car.condition|capfirst}}</li>
+                    <li class="list-group-item">Body style : {{car.body_style|capfirst}}</li>
+                    <li class="list-group-item">Miles : {{car.miles|capfirst}}</li>
+                    <li class="list-group-item">Doors : {{car.doors|capfirst}}</li>
+                    <li class="list-group-item">No of passenger : {{car.passengers|capfirst}}</li>
+                    <li class="list-group-item">Fuel Type : {{car.fuel_type|capfirst}}</li>
+                    <li class="list-group-item">Doors : {{car.doors|capfirst}}</li>
+                </ul>
+                <div class="card-footer shadow bg-dark text-warning fw-bolder text-center">
+                    Rent For >>> {{car.price|intcomma|capfirst}}
+                </div>
+            </div>
+
+            <!--  -->
+            <div>
+                <p class="my-2">If you loved all the features of the car , you can click book to make , your booking
+                </p>
+                <form action="" method="POST" class="my-3">
+                    {% csrf_token %}
+
+                    {{ form|crispy }}
+                    <input type="submit" value="Booked" class="btn btn-warning rounded-pill shadow">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+
+
+{% endblock %}
